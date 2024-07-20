@@ -1,24 +1,15 @@
 from fractions import Fraction
 
-def calculate_probability(w1, b1, w2, b2):
-    
-    total_balls_B2 = w1 + b1 + 1
-    
-    
-    probability = Fraction(b2, total_balls_B2)
-    
-    return probability
+X = ['w']*5 + ['b']*4
+Y = ['w']*7 + ['b']*6
+count=0
+visited=0
 
-if __name__ == "__main__":
-    
-    w1 = int(input("Enter number of white balls in bag B1: "))
-    b1 = int(input("Enter number of black balls in bag B1: "))
-    w2 = int(input("Enter number of white balls in bag B2: "))
-    b2 = int(input("Enter number of black balls in bag B2: "))
-    
-    
-    probability = calculate_probability(w1, b1, w2, b2)
-    
-    
-    print(f"Probability of drawing a black ball from bag B2: {probability.numerator}/{probability.denominator}")
-
+for i in X:
+    tem=Y+[i]
+    for j in tem:
+        if j=="b":
+            count+=1
+        visited+=1
+        
+print(Fraction(count, visited))

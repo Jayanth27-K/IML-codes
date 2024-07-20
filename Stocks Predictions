@@ -1,0 +1,46 @@
+def printTransactions(m, k, d, name, owned, prices):
+    for i in range(k):
+        current_stock = name[i]
+        num_owned = owned[i]
+        price_history = prices[i]
+        current_price = price_history[-1]
+        
+        # Decide on action based on current situation
+        transactions = []
+        
+        if num_owned > 0:
+            # Consider selling
+            if current_price > price_history[-2]:  # Sell if current price is higher than yesterday's
+                transactions.append((current_stock, "SELL", num_owned))
+        
+        # Consider buying
+        if m >= current_price:
+            max_buy = int(m // current_price)
+            if max_buy > 0:
+                transactions.append((current_stock, "BUY", max_buy))
+        
+        # Print transactions for this stock
+        print(len(transactions))
+        for transaction in transactions:
+            print(transaction[0], transaction[1], transaction[2])
+
+# Example usage:
+m = 100
+k = 10
+d = 20
+name = ["CAL", "UCB", "RIT", "UCLA", "USC", "UFL", "UMAD", "RICE", "UMD", "UCSC"]
+owned = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+prices = [
+    [121.83, 122.26, 123.94, 122.11, 120.58],
+    [52.34, 50.89, 47.62, 51.16, 52.4],
+    [100.21, 99.33, 102.87, 110.63, 110.72],
+    [12.5, 27.22, 9.32, 16.07, 3.86],
+    [249.58, 244.24, 242.56, 245.13, 245.35],
+    [20.21, 19.77, 21.34, 20.21, 21.17],
+    [109.39, 120.49, 131.35, 127.97, 121.38],
+    [126.3, 128, 129.08, 129.28, 124.44],
+    [102.96, 103.62, 98.22, 96.6, 99.1],
+    [213.77, 193.51, 178.53, 180.08, 208.29]
+]
+
+printTransactions(m, k, d, name, owned, prices)
